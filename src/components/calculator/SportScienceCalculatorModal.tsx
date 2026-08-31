@@ -55,8 +55,6 @@ export const SportScienceCalculatorModal: React.FC<SportScienceCalculatorModalPr
   const [cooperMeters, setCooperMeters] = useState<number>(2800);
   const [gender, setGender] = useState<"male" | "female">("male");
 
-  if (!isOpen) return null;
-
   // 1. Calculate Max HR & HR Zones
   const calculatedMaxHr = useMemo(() => {
     if (typeof customMaxHr === "number" && customMaxHr > 100) return customMaxHr;
@@ -219,6 +217,8 @@ export const SportScienceCalculatorModal: React.FC<SportScienceCalculatorModalPr
     if (calculatedVo2Max >= 35) return { label: "Average / Rata-rata", color: "text-amber-400 bg-amber-500/20" };
     return { label: "Perlu Latihan Aerobik", color: "text-orange-400 bg-orange-500/20" };
   }, [calculatedVo2Max]);
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
