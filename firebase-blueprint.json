@@ -1,0 +1,301 @@
+{
+  "entities": {
+    "users": {
+      "title": "Users",
+      "description": "User profile, biometric metadata, fitness levels, aggregate stats, and personal records",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "username": { "type": "string" },
+        "fullName": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "bio": { "type": "string" },
+        "location": { "type": "string" },
+        "favoriteSports": { "type": "array", "items": { "type": "string" } },
+        "fitnessLevel": { "type": "string", "enum": ["beginner", "intermediate", "advanced", "elite"] },
+        "goals": { "type": "string" },
+        "heightCm": { "type": "number" },
+        "weightKg": { "type": "number" },
+        "role": { "type": "string", "enum": ["USER", "CLUB_ADMIN", "MODERATOR", "ADMIN", "SUPER_ADMIN"] },
+        "privacy": { "type": "string", "enum": ["PUBLIC", "FOLLOWERS_ONLY", "PRIVATE"] },
+        "isVerified": { "type": "boolean" },
+        "isSuspended": { "type": "boolean" },
+        "stats": { "type": "object" },
+        "personalRecords": { "type": "object" },
+        "fitnessScores": { "type": "object" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "email", "username", "fullName", "role"]
+    },
+    "activities": {
+      "title": "Activities",
+      "description": "Recorded GPS and workout activities with metrics, splits, and route outlines",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userAvatar": { "type": "string" },
+        "title": { "type": "string" },
+        "sportType": { "type": "string" },
+        "startTime": { "type": "string" },
+        "endTime": { "type": "string" },
+        "durationSec": { "type": "number" },
+        "distanceKm": { "type": "number" },
+        "avgSpeedKmh": { "type": "number" },
+        "maxSpeedKmh": { "type": "number" },
+        "avgPaceMinPerKm": { "type": "number" },
+        "elevationGainM": { "type": "number" },
+        "caloriesKcal": { "type": "number" },
+        "avgHeartRate": { "type": "number" },
+        "maxHeartRate": { "type": "number" },
+        "cadence": { "type": "number" },
+        "routePoints": { "type": "array" },
+        "splits": { "type": "array" },
+        "privacy": { "type": "string", "enum": ["PUBLIC", "FOLLOWERS_ONLY", "PRIVATE"] },
+        "photos": { "type": "array", "items": { "type": "string" } },
+        "caption": { "type": "string" },
+        "kudosCount": { "type": "number" },
+        "commentCount": { "type": "number" },
+        "isFlaggedSuspicious": { "type": "boolean" },
+        "antiCheatReason": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "sportType", "durationSec", "distanceKm"]
+    },
+    "kudos": {
+      "title": "Kudos",
+      "description": "Likes and kudos given by users on activities",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "activityId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userAvatar": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "activityId", "userId"]
+    },
+    "comments": {
+      "title": "Comments",
+      "description": "User comments on activities with mentions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "activityId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userAvatar": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "activityId", "userId", "text"]
+    },
+    "followers": {
+      "title": "Followers",
+      "description": "Follow relationships between users",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "followerId": { "type": "string" },
+        "followingId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "followerId", "followingId"]
+    },
+    "clubs": {
+      "title": "Clubs",
+      "description": "Sports and fitness communities",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "coverUrl": { "type": "string" },
+        "city": { "type": "string" },
+        "country": { "type": "string" },
+        "sportTypes": { "type": "array", "items": { "type": "string" } },
+        "isPrivate": { "type": "boolean" },
+        "memberCount": { "type": "number" },
+        "totalDistanceKm": { "type": "number" },
+        "adminIds": { "type": "array", "items": { "type": "string" } },
+        "moderatorIds": { "type": "array", "items": { "type": "string" } },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "createdBy"]
+    },
+    "club_members": {
+      "title": "Club Members",
+      "description": "Membership in clubs",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "clubId": { "type": "string" },
+        "userId": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "moderator", "member"] },
+        "joinedAt": { "type": "string" }
+      },
+      "required": ["id", "clubId", "userId", "role"]
+    },
+    "challenges": {
+      "title": "Challenges",
+      "description": "Time-bounded fitness challenges with targets and badges",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "badgeIcon": { "type": "string" },
+        "sportTypes": { "type": "array", "items": { "type": "string" } },
+        "metric": { "type": "string", "enum": ["distance", "duration", "activities", "elevation", "calories"] },
+        "targetValue": { "type": "number" },
+        "startDate": { "type": "string" },
+        "endDate": { "type": "string" },
+        "bannerUrl": { "type": "string" },
+        "participantCount": { "type": "number" },
+        "completedCount": { "type": "number" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "metric", "targetValue", "startDate", "endDate"]
+    },
+    "challenge_participants": {
+      "title": "Challenge Participants",
+      "description": "User participation and progress in a challenge",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "challengeId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userAvatar": { "type": "string" },
+        "currentProgress": { "type": "number" },
+        "isCompleted": { "type": "boolean" },
+        "completedAt": { "type": "string" },
+        "joinedAt": { "type": "string" }
+      },
+      "required": ["id", "challengeId", "userId"]
+    },
+    "routes": {
+      "title": "Routes",
+      "description": "Curated or user-created tracks and routes",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "sportType": { "type": "string" },
+        "distanceKm": { "type": "number" },
+        "elevationGainM": { "type": "number" },
+        "difficulty": { "type": "string", "enum": ["easy", "moderate", "hard", "extreme"] },
+        "estimatedDurationSec": { "type": "number" },
+        "waypoints": { "type": "array" },
+        "popularity": { "type": "number" },
+        "location": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "sportType", "distanceKm"]
+    },
+    "events": {
+      "title": "Events",
+      "description": "Organized racing and community sports events",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "sportType": { "type": "string" },
+        "date": { "type": "string" },
+        "location": { "type": "string" },
+        "distanceKm": { "type": "number" },
+        "bannerUrl": { "type": "string" },
+        "registrationStatus": { "type": "string", "enum": ["open", "closed", "completed"] },
+        "participantCount": { "type": "number" },
+        "rules": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "date", "location"]
+    },
+    "event_participants": {
+      "title": "Event Participants",
+      "description": "User registrations for events",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "eventId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userAvatar": { "type": "string" },
+        "bibNumber": { "type": "string" },
+        "finishTimeSec": { "type": "number" },
+        "registeredAt": { "type": "string" }
+      },
+      "required": ["id", "eventId", "userId"]
+    },
+    "achievements": {
+      "title": "Achievements",
+      "description": "System achievement definitions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "icon": { "type": "string" },
+        "conditionType": { "type": "string" },
+        "conditionValue": { "type": "number" }
+      },
+      "required": ["id", "title", "description", "icon"]
+    },
+    "user_achievements": {
+      "title": "User Achievements",
+      "description": "Unlocked user achievements",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "achievementId": { "type": "string" },
+        "unlockedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "achievementId", "unlockedAt"]
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "User alerts and activity notices",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["activity", "challenge", "achievement", "comment", "kudos", "follow", "club", "streak", "ai_coach"] },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "data": { "type": "object" },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "type", "title", "message"]
+    },
+    "reports": {
+      "title": "Reports",
+      "description": "User & moderation reports for anti-cheat and violations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "reporterId": { "type": "string" },
+        "targetType": { "type": "string", "enum": ["activity", "user", "comment", "club"] },
+        "targetId": { "type": "string" },
+        "reason": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "dismissed", "actioned"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "reporterId", "targetType", "targetId", "reason"]
+    }
+  }
+}

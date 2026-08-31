@@ -1,0 +1,10 @@
+{
+  "name": "SPORTIVA",
+  "description": "Professional social fitness platform with GPS activity recording, live route mapping, social feeds, clubs, challenges, performance analytics, and AI Fitness Coach.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
